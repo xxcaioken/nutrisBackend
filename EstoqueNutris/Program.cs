@@ -17,6 +17,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<TokenService>();
+builder.Services.AddScoped<GoogleAuthService>();
+builder.Services.AddHttpClient();
 
 // PostgreSQL
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
