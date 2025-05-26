@@ -25,7 +25,8 @@ namespace EstoqueNutris.Controllers
             {
                 user.Id,
                 user.Email,
-                user.Nome
+                user.Nome,
+                user.IsAdmin
             });
         }
     }
