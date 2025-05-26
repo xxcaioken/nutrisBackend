@@ -51,15 +51,27 @@ namespace EstoqueNutris.Controllers
                     return BadRequest(new { errors });
                 }
 
-                // Atribui a role de usuário padrão
-                await _roleService.AssignRoleToUser(user, false);
+                // Atribui a role apropriada
+                await _roleService.AssignRoleToUser(user, dto.IsAdmin);
 
-                return Ok(new { message = "Usuário registrado com sucesso." });
+                _logger.LogInformation($"Novo usuário registrado: {user.Email}");
+
+                return CreatedAtAction(nameof(Register), new { id = user.Id }, new
+                {
+                    message = "Usuário registrado com sucesso",
+                    user = new
+                    {
+                        user.Id,
+                        user.Email,
+                        user.Nome,
+                        user.IsAdmin
+                    }
+                });
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, $"Erro ao registrar usuário: {dto.Email}");
-                return StatusCode(500, new { message = "Ocorreu um erro ao registrar o usuário." });
+                return StatusCode(500, new { message = "Erro ao registrar usuário" });
             }
         }
     }
