@@ -10,7 +10,7 @@ namespace EstoqueNutris.Models.DTOs
         public string LinkPlanilha { get; set; } = string.Empty;
         public DateTime DataCriacao { get; set; }
         public DateTime? DataAtualizacao { get; set; }
-        public EscolaDTO Escola { get; set; } = null!;
+        public EscolaDTO? Escola { get; set; } = null!;
     }
 
     public class EscolaDTO
