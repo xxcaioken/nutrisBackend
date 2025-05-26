@@ -71,7 +71,8 @@ namespace EstoqueNutris.Controllers
                         user.Id,
                         user.Email,
                         user.Nome,
-                        user.EscolaId
+                        user.EscolaId,
+                        user.IsAdmin
                     }
                 });
             }
@@ -109,7 +110,8 @@ namespace EstoqueNutris.Controllers
                         user.Id,
                         user.Email,
                         user.Nome,
-                        user.EscolaId
+                        user.EscolaId,
+                        user.IsAdmin
                     }
                 });
             }

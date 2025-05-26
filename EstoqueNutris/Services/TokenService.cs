@@ -11,13 +11,14 @@ namespace EstoqueNutris.Services
     {
         public string GenerateToken(ApplicationUser user)
         {
-            var claims = new[]
+            var claims = new List<Claim>
             {
-        new Claim(ClaimTypes.NameIdentifier, user.Id),
-        new Claim(JwtRegisteredClaimNames.Email, user.Email ?? ""),
-        new Claim("nome", user.Nome),
-        new Claim("EscolaID", user.EscolaId ?? string.Empty)
-    };
+                new Claim(ClaimTypes.NameIdentifier, user.Id),
+                new Claim(JwtRegisteredClaimNames.Email, user.Email ?? ""),
+                new Claim("nome", user.Nome),
+                new Claim("EscolaID", user.EscolaId ?? string.Empty),
+                new Claim(ClaimTypes.Role,user.IsAdmin? "Admin": "User"),
+            };
 
             var jwtKey = configuration["Jwt:Key"];
             if (string.IsNullOrWhiteSpace(jwtKey))
