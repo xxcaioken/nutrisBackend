@@ -3,6 +3,7 @@ using System;
 using EstoqueNutris.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace EstoqueNutris.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250526070333_AddUsuarioEscolaTable")]
+    partial class AddUsuarioEscolaTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -126,36 +129,6 @@ namespace EstoqueNutris.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("EstoqueNutris.Models.Escola", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("text");
-
-                    b.Property<DateTime>("DataCriacao")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("Email")
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
-
-                    b.Property<string>("Endereco")
-                        .HasMaxLength(200)
-                        .HasColumnType("character varying(200)");
-
-                    b.Property<string>("Nome")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
-
-                    b.Property<string>("Telefone")
-                        .HasMaxLength(20)
-                        .HasColumnType("character varying(20)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Escolas");
-                });
-
             modelBuilder.Entity("EstoqueNutris.Models.UsuarioEscola", b =>
                 {
                     b.Property<int>("Id")
@@ -185,8 +158,6 @@ namespace EstoqueNutris.Migrations
                         .HasColumnType("text");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("EscolaId");
 
                     b.HasIndex("UsuarioId", "EscolaId")
                         .IsUnique();
@@ -302,19 +273,11 @@ namespace EstoqueNutris.Migrations
 
             modelBuilder.Entity("EstoqueNutris.Models.UsuarioEscola", b =>
                 {
-                    b.HasOne("EstoqueNutris.Models.Escola", "Escola")
-                        .WithMany("UsuarioEscolas")
-                        .HasForeignKey("EscolaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("EstoqueNutris.Models.ApplicationUser", "Usuario")
                         .WithMany()
                         .HasForeignKey("UsuarioId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Escola");
 
                     b.Navigation("Usuario");
                 });
@@ -368,11 +331,6 @@ namespace EstoqueNutris.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("EstoqueNutris.Models.Escola", b =>
-                {
-                    b.Navigation("UsuarioEscolas");
                 });
 #pragma warning restore 612, 618
         }

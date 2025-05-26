@@ -1,6 +1,9 @@
 ﻿using EstoqueNutris.Data;
 using EstoqueNutris.Models;
+using EstoqueNutris.Repositories;
+using EstoqueNutris.Repositories.Interfaces;
 using EstoqueNutris.Services;
+using EstoqueNutris.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -19,6 +22,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<TokenService>();
 builder.Services.AddScoped<GoogleAuthService>();
 builder.Services.AddScoped<RoleService>();
+builder.Services.AddScoped<EscolaService>();
 builder.Services.AddHttpClient();
 
 // PostgreSQL
@@ -84,6 +88,14 @@ builder.Services.AddCors(options =>
               .AllowAnyMethod();
     });
 });
+
+// Registrar repositórios
+builder.Services.AddScoped<IEscolaRepository, EscolaRepository>();
+builder.Services.AddScoped<IUsuarioEscolaRepository, UsuarioEscolaRepository>();
+
+// Registrar serviços
+builder.Services.AddScoped<IEscolaService, EscolaService>();
+builder.Services.AddScoped<IUsuarioEscolaService, UsuarioEscolaService>();
 
 var app = builder.Build();
 
