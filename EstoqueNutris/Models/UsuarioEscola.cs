@@ -26,5 +26,7 @@ namespace EstoqueNutris.Models
 
         [ForeignKey("EscolaId")]
         public virtual Escola? Escola { get; set; }
+
+        public virtual ICollection<Link> Links { get; set; } = new List<Link>();
     }
 } 

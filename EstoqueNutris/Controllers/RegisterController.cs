@@ -51,7 +51,6 @@ namespace EstoqueNutris.Controllers
                     return BadRequest(new { errors });
                 }
 
-                // Atribui a role apropriada
                 await _roleService.AssignRoleToUser(user, dto.IsAdmin);
 
                 _logger.LogInformation($"Novo usuário registrado: {user.Email}");

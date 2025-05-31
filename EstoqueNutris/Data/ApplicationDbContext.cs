@@ -9,6 +9,7 @@ namespace EstoqueNutris.Data
     {
         public DbSet<UsuarioEscola> UsuarioEscolas { get; set; }
         public DbSet<Escola> Escolas { get; set; }
+        public DbSet<Link> Links { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -29,13 +30,11 @@ namespace EstoqueNutris.Data
                 .IsRequired()
                 .HasDefaultValue("0");
 
-            // Configuração da tabela Escola
             builder.Entity<Escola>()
                 .Property(e => e.Nome)
                 .IsRequired()
                 .HasMaxLength(100);
 
-            // Configuração da tabela UsuarioEscola
             builder.Entity<UsuarioEscola>()
                 .HasOne(ue => ue.Usuario)
                 .WithMany()
@@ -58,10 +57,29 @@ namespace EstoqueNutris.Data
                 .IsRequired()
                 .HasMaxLength(50);
 
-            // Índice composto para evitar duplicatas
             builder.Entity<UsuarioEscola>()
                 .HasIndex(ue => new { ue.UsuarioId, ue.EscolaId })
                 .IsUnique();
+
+            builder.Entity<Link>()
+                .HasOne(l => l.UsuarioEscola)
+                .WithMany(ue => ue.Links)
+                .HasForeignKey(l => l.UsuarioEscolaId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            builder.Entity<Link>()
+                .Property(l => l.Nome)
+                .IsRequired()
+                .HasMaxLength(100);
+
+            builder.Entity<Link>()
+                .Property(l => l.Url)
+                .IsRequired()
+                .HasMaxLength(500);
+
+            builder.Entity<Link>()
+                .Property(l => l.Descricao)
+                .HasMaxLength(255);
         }
     }
 }

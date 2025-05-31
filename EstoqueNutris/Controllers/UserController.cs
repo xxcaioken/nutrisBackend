@@ -109,7 +109,6 @@ namespace EstoqueNutris.Controllers
                     return BadRequest(new { errors });
                 }
 
-                // Atualiza a role se necessário
                 if (dto.IsAdmin != user.IsAdmin)
                 {
                     await _roleService.AssignRoleToUser(user, dto.IsAdmin);

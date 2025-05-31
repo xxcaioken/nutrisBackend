@@ -26,14 +26,12 @@ namespace EstoqueNutris.Services
         {
             try
             {
-                // Cria a role Admin se não existir
                 if (!await _roleManager.RoleExistsAsync(ADMIN_ROLE))
                 {
                     await _roleManager.CreateAsync(new ApplicationRole(ADMIN_ROLE));
                     _logger.LogInformation("Role Admin criada com sucesso");
                 }
 
-                // Cria a role User se não existir
                 if (!await _roleManager.RoleExistsAsync(USER_ROLE))
                 {
                     await _roleManager.CreateAsync(new ApplicationRole(USER_ROLE));
@@ -51,11 +49,9 @@ namespace EstoqueNutris.Services
         {
             try
             {
-                // Remove todas as roles existentes
                 var currentRoles = await _userManager.GetRolesAsync(user);
                 await _userManager.RemoveFromRolesAsync(user, currentRoles);
 
-                // Atribui a nova role
                 var role = isAdmin ? ADMIN_ROLE : USER_ROLE;
                 await _userManager.AddToRoleAsync(user, role);
                 user.IsAdmin = isAdmin;
