@@ -65,22 +65,24 @@ namespace EstoqueNutris.Services
                 var user = await _userManager.FindByEmailAsync(googleUser.Email);
                 if (user == null)
                 {
-                    _logger.LogInformation($"Criando novo usuário para email: {googleUser.Email}");
-                    user = new ApplicationUser
-                    {
-                        UserName = googleUser.Email,
-                        Email = googleUser.Email,
-                        Nome = googleUser.Name,
-                        EmailConfirmed = true
-                    };
+                    //_logger.LogInformation($"Criando novo usuário para email: {googleUser.Email}");
+                    //user = new ApplicationUser
+                    //{
+                    //    UserName = googleUser.Email,
+                    //    Email = googleUser.Email,
+                    //    Nome = googleUser.Name,
+                    //    EmailConfirmed = true
+                    //};
 
-                    var result = await _userManager.CreateAsync(user);
-                    if (!result.Succeeded)
-                    {
-                        _logger.LogError($"Erro ao criar usuário do Google: {string.Join(", ", result.Errors.Select(e => e.Description))}");
-                        return null;
-                    }
-                    _logger.LogInformation($"Usuário criado com sucesso: {user.Email}");
+                    //var result = await _userManager.CreateAsync(user);
+                    //if (!result.Succeeded)
+                    //{
+                    //    _logger.LogError($"Erro ao criar usuário do Google: {string.Join(", ", result.Errors.Select(e => e.Description))}");
+                    //    return null;
+                    //}
+                    //_logger.LogInformation($"Usuário criado com sucesso: {user.Email}");
+                    _logger.LogInformation($"Usuário não encontrado: Consulte sua gestora");
+                
                 }
                 else
                 {
