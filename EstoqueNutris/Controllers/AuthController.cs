@@ -121,5 +121,12 @@ namespace EstoqueNutris.Controllers
                 return StatusCode(500, new { message = "Ocorreu um erro ao processar o login com Google" });
             }
         }
+
+        [HttpPost("logout")]
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+            return Ok(new { message = "Logout realizado com sucesso" });
+        }
     }
 }

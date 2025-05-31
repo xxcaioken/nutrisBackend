@@ -1,3 +1,4 @@
+using EstoqueNutris.DTOs;
 using EstoqueNutris.Models.DTOs;
 using System.Collections.Generic;
 using System.Threading.Tasks;
