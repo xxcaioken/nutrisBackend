@@ -10,6 +10,7 @@ namespace EstoqueNutris.Data
         public DbSet<UsuarioEscola> UsuarioEscolas { get; set; }
         public DbSet<Escola> Escolas { get; set; }
         public DbSet<Link> Links { get; set; }
+        public DbSet<ImportacaoManager> ImportacaoManagers { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -80,6 +81,48 @@ namespace EstoqueNutris.Data
             builder.Entity<Link>()
                 .Property(l => l.Descricao)
                 .HasMaxLength(255);
+
+            builder.Entity<ImportacaoManager>()
+                .HasOne(im => im.UsuarioEscola)
+                .WithMany()
+                .HasForeignKey(im => im.UsuarioEscolaId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            builder.Entity<ImportacaoManager>()
+                .Property(im => im.Nome)
+                .IsRequired()
+                .HasMaxLength(100);
+
+            builder.Entity<ImportacaoManager>()
+                .Property(im => im.PlanilhaOrigemUrl)
+                .IsRequired()
+                .HasMaxLength(500);
+
+            builder.Entity<ImportacaoManager>()
+                .Property(im => im.PlanilhaDestinoUrl)
+                .IsRequired()
+                .HasMaxLength(500);
+
+            builder.Entity<ImportacaoManager>()
+                .Property(im => im.CelulasMapping)
+                .IsRequired();
+
+            builder.Entity<ImportacaoManager>()
+                .Property(im => im.Descricao)
+                .HasMaxLength(255);
+
+            builder.Entity<ImportacaoManager>()
+                .Property(im => im.DataCriacao)
+                .IsRequired()
+                .HasDefaultValueSql("NOW()");
+
+            builder.Entity<ImportacaoManager>()
+                .Property(im => im.DataAtualizacao)
+                .IsRequired(false);
+
+            builder.Entity<ImportacaoManager>()
+                .Property(im => im.UltimaExecucao)
+                .IsRequired(false);
         }
     }
 }

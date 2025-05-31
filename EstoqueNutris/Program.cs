@@ -93,11 +93,13 @@ builder.Services.AddCors(options =>
 builder.Services.AddScoped<IEscolaRepository, EscolaRepository>();
 builder.Services.AddScoped<IUsuarioEscolaRepository, UsuarioEscolaRepository>();
 builder.Services.AddScoped<ILinkRepository, LinkRepository>();
+builder.Services.AddScoped<IImportacaoManagerRepository, ImportacaoManagerRepository>();
 
 // Registrar serviços
 builder.Services.AddScoped<IEscolaService, EscolaService>();
 builder.Services.AddScoped<IUsuarioEscolaService, UsuarioEscolaService>();
 builder.Services.AddScoped<ILinkService, LinkService>();
+builder.Services.AddScoped<IImportacaoManagerService, ImportacaoManagerService>();
 
 var app = builder.Build();
 
